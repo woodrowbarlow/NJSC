@@ -1,0 +1,8 @@
+[package]
+name = "njsc"
+version = "0.1.0"
+authors = ["wbarlow"]
+
+[lib]
+name = "njsc"
+crate-type = ["dylib"]
