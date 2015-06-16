@@ -4,12 +4,15 @@ import java.io.File;
 
 public class NJSC {
 
-    public static native void test();
-
-    public static void main(String args[]) {
+    static {
         File f = new File("njsc/target/release/libnjsc.so");
         System.load(f.getAbsolutePath());
-        NJSC.test();
     }
+
+    public native void info();
+
+    public native void hasArgument(int i);
+
+    public native int sum(int a, int b);
 
 }
