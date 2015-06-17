@@ -32,13 +32,21 @@ pub mod exports {
 
     #[no_mangle]
     pub extern fn Java_tests_NJSC_concat(env: &JNIEnv, _this: JObject, a: JString, b: JString) -> JString {
-        let ajs = JStr::from_jstring(env, a);
-        let bjs = JStr::from_jstring(env, b);
+        match (JStr::from_jstring(env, a), JStr::from_jstring(env, b)) {
+            (Some(ajs), Some(bjs)) => {
+                println!("concatenating strings of length {} and {}", ajs.len(), bjs.len());
 
-        println!("concatenating strings of length {} and {}", ajs.len(), bjs.len());
-
-        let mut rs = ajs.to_string();
-        rs.push_str(&*bjs.to_string());
-        return env.new_string(&*rs).to_jstring();
+                let mut rs = ajs.to_string();
+                rs.push_str(&*bjs.to_string());
+                return env.new_string(&*rs).to_jstring();
+            },
+            (None, _) => {
+                println!("a is null");
+            },
+            (_, None) => {
+                println!("b is null");
+            }
+        }
+        return env.new_string("").to_jstring();
     }
 }
