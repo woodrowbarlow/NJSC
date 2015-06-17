@@ -1,19 +1,44 @@
 #![crate_type = "dylib"]
 
-use std::any::Any;
+extern crate libc;
 
-#[no_mangle]
-pub extern fn Java_tests_NJSC_info(jre: *const Any, class: *const Any) {
-    println!("hello from rust!");
-}
+mod jni;
 
-#[no_mangle]
-pub extern fn Java_tests_NJSC_hasArgument(jre: *const Any, class: *const Any, i: i32) {
-	println!("this prints the number {}.", i);
-}
+#[allow(non_snake_case)]
+pub mod exports {
+    use jni::{JNIEnv, JObject, JInt, JStr, JString};
 
-#[no_mangle]
-pub extern fn Java_tests_NJSC_sum(jre: *const Any, class: *const Any, a: i32, b: i32) -> i32 {
-	println!("we're adding {} and {}.", a, b);
-	return (a + b);
+    #[no_mangle]
+    pub extern fn Java_tests_NJSC_info(env: &JNIEnv, _this: JObject) {
+        let (major, minor) = env.get_version();
+        println!("hello from rust! (JNI version {}.{})", major, minor);
+    }
+
+    #[no_mangle]
+    pub extern fn Java_tests_NJSC_hasArgument(_env: &JNIEnv, _this: JObject, i: JInt) {
+        println!("this prints the number {}.", i);
+    }
+
+    #[no_mangle]
+    pub extern fn Java_tests_NJSC_sum(_env: &JNIEnv, _this: JObject, a: JInt, b: JInt) -> JInt {
+        println!("we're adding {} and {}.", a, b);
+        return a + b;
+    }
+
+    #[no_mangle]
+    pub extern fn Java_tests_NJSC_makeString(env: &JNIEnv, _this: JObject) -> JString {
+        return env.new_string("this string was made in rust!").to_jstring();
+    }
+
+    #[no_mangle]
+    pub extern fn Java_tests_NJSC_concat(env: &JNIEnv, _this: JObject, a: JString, b: JString) -> JString {
+        let ajs = JStr::from_jstring(env, a);
+        let bjs = JStr::from_jstring(env, b);
+
+        println!("concatenating strings of length {} and {}", ajs.len(), bjs.len());
+
+        let mut rs = ajs.to_string();
+        rs.push_str(&*bjs.to_string());
+        return env.new_string(&*rs).to_jstring();
+    }
 }

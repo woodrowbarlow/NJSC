@@ -15,4 +15,8 @@ public class NJSC {
 
     public native int sum(int a, int b);
 
+    public native String makeString();
+
+    public native String concat(String a, String b);
+
 }
