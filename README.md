@@ -12,6 +12,8 @@ Native code will be written in Rust and packaged in the JAR (so that it does not
 system). For now, this might limit the potential compile targets, but Rust will quickly expand into the embedded devices
 world.
 
+Note to self: check out [RustJNI](https://github.com/Monnoroch/RustJni).
+
 ### Install Tools
 
 Install the rust compiler. For a full installation guide, click [here](https://doc.rust-lang.org/stable/book/installing-rust.html),
