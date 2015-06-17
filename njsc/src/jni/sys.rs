@@ -457,18 +457,6 @@ pub struct JNINativeInterface {
     pub ReleaseStringUTFChars: extern fn(env: &JNIEnv, s: jstring, chars: *const c_char),
 
     /*
-    jstring (JNICALL *NewStringUTF)
-      (JNIEnv *env, const char *utf);
-    jsize (JNICALL *GetStringUTFLength)
-      (JNIEnv *env, jstring str);
-    const char* (JNICALL *GetStringUTFChars)
-      (JNIEnv *env, jstring str, jboolean *isCopy);
-    void (JNICALL *ReleaseStringUTFChars)
-      (JNIEnv *env, jstring str, const char* chars);
-      */
-
-
-    /*
     jsize (JNICALL *GetArrayLength)
       (JNIEnv *env, jarray array);
 
