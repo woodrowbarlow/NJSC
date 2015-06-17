@@ -38,8 +38,12 @@ pub struct JStr<'a> {
 }
 
 impl<'a> JStr<'a> {
-    pub fn from_jstring<'b>(env: &'b JNIEnv, s: JString) -> JStr<'b> {
-        JStr { js: s, env: &env.env }
+    pub fn from_jstring<'b>(env: &'b JNIEnv, s: JString) -> Option<JStr<'b>> {
+        if s.is_null() {
+            None
+        } else {
+            Some(JStr { js: s, env: &env.env })
+        }
     }
 
     /// Gets the length of the string in bytes

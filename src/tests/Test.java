@@ -19,6 +19,9 @@ public class Test {
 
         String sb = jniObject.concat("hello", "world");
         System.out.println(sb);
+
+        jniObject.concat(null, "world");
+        jniObject.concat("hello", null);
     }
 
 }
