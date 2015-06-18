@@ -79,6 +79,6 @@ generate cross-compiled code.
 
 ### Compile and Run
 
-(a better build system is coming)
-In the `njsc` directory, which has the `Cargo.toml` file, run
-`cargo build --release`. Compile and run the Java file.
+For now, this works:
+
+ * (at the top level of the project): `ant`, `cargo build --release`, `java -classpath out me.wbarlow.njsc.Test`
