@@ -4,35 +4,38 @@
     <property file="build.properties" />
 
     <patternset id="java.files">
-        <include name="**/*.java"/>
+        <include name="src/java/**/*.java"/>
     </patternset>
 
     <patternset id="rust.files">
-        <include name="**/*.rs"/>
+        <include name="src/rust/**/*.rs"/>
     </patternset>
 
     <path id="master-classpath">
         <pathelement path="${out.dir}" />
     </path>
 
-    <target name="all" depends="info,clean,setup,compile,test,package">
+    <target name="all" depends="info,clean,setup,build,test,package,run">
     </target>
 
     <target name="clean">
         <delete>
-            <fileset dir="${out.dir}" casesensitive="yes">
-                <include name="**/*" />
+            <fileset dir="./" casesensitive="yes">
+                <include name="${out.dir}/**/*" />
+                <include name="${out.dir}" />
             </fileset>
         </delete>
     </target>
 
     <target name="setup">
         <mkdir dir="${out.dir}" />
+        <mkdir dir="${out.dir}/java" />
+        <mkdir dir="${out.dir}/rust" />
     </target>
 
-    <target name="compile">
-        <javac destdir="${out.dir}" source="1.5" target="1.5" debug="true" deprecation="false" optimize="false" failonerror="true">
-            <src path="${src.dir}" />
+    <target name="build">
+        <javac destdir="${out.dir}/java" source="1.5" target="1.5" debug="true" deprecation="false" optimize="false" failonerror="true">
+            <src path="${src.dir}/java" />
             <classpath refid="master-classpath" />
         </javac>
     </target>
@@ -41,6 +44,16 @@
     </target>
 
     <target name="package">
+        <mkdir dir="${out.dir}/production" />
+        <jar destfile="${out.dir}/production/NJSC.jar" basedir="${out.dir}/java">
+            <manifest>
+                <attribute name="Main-Class" value="me.wbarlow.njsc.Test" />
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="${out.dir}/production/NJSC.jar" fork="true" />
     </target>
 
     <target name="info">

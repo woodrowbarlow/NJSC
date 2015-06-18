@@ -5,9 +5,9 @@ build: build-rust build-java
 build-rust:
 	cargo build --release
 build-java:
-	javac src/me/wbarlow/njsc/*.java -d out
+	javac src/java/me/wbarlow/njsc/*.java -d out/java
 run:
-	java -classpath out me.wbarlow.njsc.Test
+	java -classpath out/java me.wbarlow.njsc.Test
 clean:
 	rm -rf out
 	rm -rf target
