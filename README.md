@@ -79,6 +79,7 @@ generate cross-compiled code.
 
 ### Compile and Run
 
-For now, this works:
+For now, either of these will work:
 
- * (at the top level of the project): `ant`, `cargo build --release`, `java -classpath out me.wbarlow.njsc.Test`
+ * (at the top level of the project): `ant && cargo build --release && java -classpath out me.wbarlow.njsc.Test`
+ * (at the top level of the project): `make`
