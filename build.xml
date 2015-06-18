@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<project name="New Java Serial Connector" default="all">
+
+    <property file="build.properties" />
+
+    <patternset id="java.files">
+        <include name="**/*.java"/>
+    </patternset>
+
+    <patternset id="rust.files">
+        <include name="**/*.rs"/>
+    </patternset>
+
+    <path id="master-classpath">
+        <pathelement path="${out.dir}" />
+    </path>
+
+    <target name="all" depends="info,clean,setup,compile,test,package">
+    </target>
+
+    <target name="clean">
+        <delete>
+            <fileset dir="${out.dir}" casesensitive="yes">
+                <include name="**/*" />
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="setup">
+        <mkdir dir="${out.dir}" />
+    </target>
+
+    <target name="compile">
+        <javac destdir="${out.dir}" source="1.5" target="1.5" debug="true" deprecation="false" optimize="false" failonerror="true">
+            <src path="${src.dir}" />
+            <classpath refid="master-classpath" />
+        </javac>
+    </target>
+
+    <target name="test">
+    </target>
+
+    <target name="package">
+    </target>
+
+    <target name="info">
+        <echo>JDK Version: ${ant.java.version}. Author: ${author.name} &lt;${author.email}&gt;.</echo>
+    </target>
+
+</project>

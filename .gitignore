@@ -1,5 +1,10 @@
 *.iml
 *.class
+*.lock
+*.so
+*.dylib
+*.dll
 .idea/
 bin/
 out/
+target/

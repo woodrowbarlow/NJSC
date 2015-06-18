@@ -1,10 +1,5 @@
-package tests;
+package me.wbarlow.njsc;
 
-import java.io.File;
-
-/**
- * Created by wbarlow on 6/15/15.
- */
 public class Test {
 
     public static void main(String args[]) {

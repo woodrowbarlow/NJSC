@@ -1,11 +1,11 @@
-package tests;
+package me.wbarlow.njsc;
 
 import java.io.File;
 
 public class NJSC {
 
     static {
-        File f = new File("njsc/target/release/libnjsc.so");
+        File f = new File("target/release/libnjsc.so");
         System.load(f.getAbsolutePath());
     }
 
